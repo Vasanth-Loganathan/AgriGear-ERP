@@ -1,85 +1,120 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# IDE and editors
-.idea/
+# ==============================================================================
+# OS & IDE Files
+# ==============================================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.log
+*.bak
+*.swp
+*.swo
+*~
 .vscode/
+.idea/
+*.suo
+*.sln
+.ipynb_checkpoints/
 
-# Dependencies
-node_modules/
-/node_modules
-/.pnp
-.pnp.js
-.yarn/install-state.gz
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
-
-# Testing
-/coverage
-
-# Next.js
-/.next/
-/out/
-next-env.d.ts
-*.tsbuildinfo
-
-# Production builds
-/build
-dist/
-dist
-
-# Environment files (comprehensive coverage)
-
+# ==============================================================================
+# Secrets & Environment Variables
+# ==============================================================================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
 *token.json*
 *credentials.json*
+secret*.txt
 
-# Logs and debug files
+# ==============================================================================
+# Frontend (React / Node.js)
+# ==============================================================================
+# Dependencies
+frontend/node_modules/
+node_modules/
+/.pnp
+.pnp.js
+
+# Build Outputs
+frontend/build/
+frontend/dist/
+build/
+dist/
+
+# Caches & Logs
+frontend/.eslintcache
+frontend/.cracocache
+frontend/.cache/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
-dump.rdb
 
-# System files
-.DS_Store
-*.pem
+# Yarn Zero-Install (if ever used)
+.yarn/install-state.gz
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
 
-# Python
+# Coverage & Testing
+frontend/coverage/
+
+# ==============================================================================
+# Backend (Python / FastAPI)
+# ==============================================================================
+# Byte-compiled / Optimized files
 __pycache__/
-*pyc*
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual Environments
 venv/
 .venv/
+env/
+.env_venv/
+backend/venv/
+backend/.venv/
 
-# Development tools
-chainlit.md
-.chainlit
-.ipynb_checkpoints/
-.ac
+# Testing & Coverage
+backend/.pytest_cache/
+backend/.coverage
+backend/htmlcov/
+backend/coverage.xml
+backend/pytest.xml
 
-# Deployment
-.vercel
+# Mypy / Type Checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
 
-# Data and databases
-agenthub/agents/youtube/db
+# Ruff / Linting Caches
+.ruff_cache/
 
-# Archive files and large assets
-**/*.zip
-**/*.tar.gz
-**/*.tar
-**/*.tgz
+# Runtime Data / SQLite / Redis Dumps
+*.sqlite3
+dump.rdb
+backend/agrigear_db*.sqlite3
+
+# Packaging
+build/
+lib/
+sdist/
+eggs/
+*.egg-info/
+.eggs/
+
+# ==============================================================================
+# Archives & Large Files
+# ==============================================================================
+*.zip
+*.tar.gz
+*.tar
+*.tgz
+*.rar
 *.pack
-*.deb
-*.dylib
-
-# Build caches
-.cache/
-
-# Mobile development
-android-sdk/ frontend/node_modules/.cache/default-development/0.pack
-farm-machinery-erp.zip
-frontend/node_modules/.cache/default-development/0.pack
-
-
-backend/.env

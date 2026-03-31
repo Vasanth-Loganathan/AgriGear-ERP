@@ -1,278 +1,166 @@
-# 🌾 AgriGear ERP
-
-**Enterprise Resource Planning for Agricultural Machinery Rental & Fleet Management**
-
-AgriGear ERP is a full-stack, multi-tenant platform built to manage the end-to-end lifecycle of agricultural machinery rental operations — from farmer bookings and operator dispatching to mechanic maintenance, invoicing, payroll, and business intelligence reporting.
+<div align="center">  
+  <h1>🌾 AgriGear ERP</h1>
+  <p><strong>Enterprise Resource Planning Platform for Agricultural Machinery Rental & Fleet Management</strong></p>
+</div>
 
 ---
 
-## ✨ Key Features
+AgriGear ERP is a modern, full-stack, multi-tenant platform architected to manage the end-to-end lifecycle of agricultural machinery rental operations. From a farmer establishing bookings and an operator dispatching machinery, to a mechanic handling field maintenance, invoicing, payroll, and core business intelligence reporting—AgriGear acts as the central brain of an agricultural fleet.
+
+---
+
+## ✨ Enterprise Features
 
 ### 🏢 Multi-Tenant Architecture
-- **Super Admin** provisions tenant organizations with isolated data
-- **Owner** manages their company, creates managers, and monitors business health
-- **Org Admin (Manager)** handles day-to-day fleet and staff operations
-- **Operator** logs field work, tracks assignments, and records fuel usage
-- **Farmer** browses machinery, creates bookings, and views invoices
-- **Mechanic** accepts maintenance jobs, requests spare parts, and completes repairs
+Isolated, secure environments designed for scalability across multiple organizations.
+- **Super Admin:** Provisions tenant organizations, manages active users, and global settings.
+- **Owner:** Manages their distinct company space, registers managers, and monitors executive health dashboards.
+- **Org Admin (Manager):** Handles day-to-day fleet assignments, local staff operations, and approvals.
+- **Operator:** Logs field work, tracks machinery assignments, and records diesel/fuel usage.
+- **Farmer:** Self-registers, browses machinery in a marketplace view, executes bookings, and views invoices.
+- **Mechanic:** Independent or hired mechanics who receive maintenance requests, request spare parts, and log repairs.
 
-### 🚜 Fleet & Machinery Management
-- Register and manage machinery with rate-per-hour / rate-per-acre pricing
-- Real-time status tracking (Available, Booked, Under Maintenance)
-- Machinery utilization analytics and ROI reporting per machine
-- Fuel/diesel expense logging per machine
+### 🚜 Fleet & Machinery Tracking
+- Global tracking for machinery inventory with isolated data per tenant.
+- Geolocation tracking on active fields utilizing **Leaflet** maps.
+- Advanced rate schemas: `Rate per Hour` vs `Rate per Acre`.
+- Live machine status tracking: *Available, Booked, Under Maintenance.*
 
-### 📋 Booking & Field Operations
-- Farmers browse available machinery in a marketplace-style catalog
-- Admin assigns operators and approves bookings
-- Operators submit field logs with actual hours/acres worked
-- Auto-invoicing and auto-wage generation on job completion
-- Booking reassignment when machinery goes under maintenance
+### 📋 Intelligent Bookings & Field Logging
+- Farmers access a rich marketplace catalog to book required machinery dynamically.
+- System-driven workflow: Create Booking → Admin assigns Operator → Operator logs actual completion.
+- Automated creation of Invoices (for farmers) and Wage records (for operators/mechanics) upon closure of a job.
 
-### 🔧 Maintenance & Spare Parts
-- Create maintenance requests and assign mechanics
-- Mechanics accept/reject jobs, request spare parts, log labor costs
-- Manager approves spare parts with cost tracking
-- Star rating system for mechanic reviews (1–5 stars)
-- Full spare parts lifecycle: requested → approved → provided
+### 🔧 End-to-End Maintenance & Inventory
+- Direct signaling for machinery breakdown from Operators to Admins.
+- Mechanic assignment workflow with accept/reject SLA capabilities.
+- Integrated Spare Parts approval workflow allowing cost tracking against specific machinery.
 
-### 💰 Invoicing & Payments
-- Auto-generated invoices linked to completed bookings
-- Payment tracking (Pending → Paid)
-- Farmer-facing invoice portal
-
-### 💵 Wages & Payroll
-- Operator wages auto-calculated from field log hours × wage rate
-- Mechanic wages generated on maintenance job completion
-- Monthly payroll engine for salaried managers
-- Pay individual operator/mechanic wages with audit trail
-
-### 📊 Reports & Analytics
-- **KPI Dashboard**: Revenue, bookings, active machinery, pending payments, company rating
-- **Detail Reports**: Revenue, diesel, wages, maintenance, spare parts, farmer bookings, farmer directory, employee roster
-- **Custom BI Reports**: Date-filtered financial summaries and fleet utilization
-- **ROI Analysis**: Per-machine profitability (revenue − maintenance − diesel − wages)
-- **CSV Export**: Export any report to CSV with totals and statistics
-
-### 🔐 Authentication & Security
-- JWT-based authentication with role-based access control
-- Forced password change on first login
-- Password reset via email (SMTP integration)
-- User suspension with appeal ticketing system
-- Farmer and mechanic self-registration with admin approval workflow
-
-### 💬 Support & Communication
-- Guest inquiry form for prospective users
-- Suspended user appeal chat system
-- Admin ticket management with email replies
+### 📊 Business Intelligence & Reporting
+- **KPI Dashboard:** Top-level visualizations for Revenue, Bookings, Fleet Health, and active workflows.
+- **Financial Breakdowns:** Profitability analysis calculating ROI per machine *(Revenue − Maintenance − Diesel − Wages)*.
+- **Data Export:** Complete CSV export capabilities for accounting reconciliation.
 
 ---
 
-## 🏗️ Tech Stack
+## 🏗️ Architecture & Tech Stack
 
-| Layer       | Technology                                                |
-|-------------|-----------------------------------------------------------|
-| **Backend** | Python 3.10+, FastAPI, Pydantic v2, Motor (async MongoDB) |
-| **Frontend**| React 19, Tailwind CSS 3, Radix UI, Recharts, Leaflet     |
-| **Database**| MongoDB (local or Atlas)                                   |
-| **Auth**    | JWT (python-jose), bcrypt (passlib)                        |
-| **Email**   | SMTP (Gmail App Passwords)                                 |
-| **Icons**   | Lucide React                                               |
-| **Fonts**   | Manrope (headings), Public Sans (body), JetBrains Mono (data) |
+AgriGear ERP utilizes a robust separation of concerns, operating via a fast, reactive frontend communicating with a high-concurrency asynchronous backend.
 
----
-
-## 📁 Project Structure
-
+```mermaid
+graph TD
+    A[React 19 Frontend UI] <-->|REST API / Axios| B[FastAPI Backend]
+    B <-->|Async Motor| C[(MongoDB Database)]
+    B -->|Background Tasks| D[Brevo API Notifications]
 ```
-erp-emergent/
-├── backend/
-│   ├── server.py           # FastAPI application (all routes & models)
-│   ├── requirements.txt    # Python dependencies
-│   ├── run.bat             # Windows startup script
-│   ├── .env                # Environment variables
-│   └── utils/              # Utility modules
+
+### Stack Breakdown
+
+| Layer | Technology | Key Libraries |
+| --- | --- | --- |
+| **Frontend** | React 19 | Tailwind CSS 3, Radix UI primitives, Recharts, React Hook Form, Leaflet |
+| **Backend** | Python 3.10+ | FastAPI, Uvicorn, Pydantic v2, Passlib (bcrypt), python-jose (JWT) |
+| **Database** | MongoDB | Motor (Asyncio Driver) |
+| **Auth** | JWT / Bearer | Secure hashing, multi-role credential pipelines |
+
+---
+
+## 📁 Repository Structure
+
+```text
+agrigear-erp/
+├── backend/                  # Python API Microservice
+│   ├── server.py             # FastAPI App, Routes, Model definitions
+│   ├── utils/                # Utility services (e.g., email dispatchers)
+│   ├── requirements.txt      # Python dependencies
+│   ├── .env                  # Backend environment secrets
+│   └── run.bat               # Windows execution script
 │
-├── frontend/
-│   ├── src/
-│   │   ├── App.js          # React router with role-based redirects
-│   │   ├── pages/          # 23 page components
-│   │   ├── components/     # Layout, ProtectedRoute, UI primitives
-│   │   ├── context/        # AuthContext (JWT + user state)
-│   │   ├── api/            # Axios instance with interceptors
-│   │   ├── hooks/          # Custom React hooks
-│   │   └── lib/            # Utility functions
-│   ├── package.json
-│   └── tailwind.config.js
+├── frontend/                 # React SPA Application
+│   ├── src/                  
+│   │   ├── api/              # Axios handlers & interceptors
+│   │   ├── components/       # Reusable generic UI components (Buttons, Inputs)
+│   │   ├── context/          # React Context (Auth Context)
+│   │   ├── lib/              # Utility classes (clsx, tailwind-merge)
+│   │   ├── pages/            # Role-based page views
+│   │   └── App.js            # Router configuration & Entry
+│   ├── package.json          # Node dependencies
+│   ├── tailwind.config.js    # Design system tokens
+│   └── .env                  # Frontend build variables
 │
-├── design_guidelines.json  # UI/UX design system reference
-└── README.md
+└── design_guidelines.json    # Shared design token constants
 ```
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Deployment & Local Development
 
-### Prerequisites
+### 1. Prerequisites
+Ensure the following are installed natively:
+- **Python 3.10+**
+- **Node.js 18+** & **Yarn 1.22+**
+- **MongoDB** (Local instance running on `27017` or Atlas URI)
 
-- **Python 3.10+** — [Download](https://www.python.org/downloads/)
-- **Node.js 18+** and **Yarn** — [Download Node](https://nodejs.org/) / `npm install -g yarn`
-- **MongoDB** — [Download](https://www.mongodb.com/try/download/community) or use [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+### 2. Database & Secrets Preparation
 
-### 1. Clone the Repository
+You must supply `.env` files for both applications. Ensure these are never committed to version control.
 
-```bash
-git clone https://github.com/your-org/erp-emergent.git
-cd erp-emergent
-```
-
-### 2. Backend Setup
-
-```bash
-cd backend
-
-# Create and activate virtual environment
-python -m venv venv
-# Windows:
-venv\Scripts\activate
-# macOS/Linux:
-source venv/bin/activate
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-#### Configure Environment Variables
-
-Create or edit `backend/.env`:
-
+**Backend (`backend/.env`):**
 ```env
 MONGO_URL=mongodb://localhost:27017
 DB_NAME=agrigear_erp
 CORS_ORIGINS=*
-SECRET_KEY=your-secret-key-change-in-production
-
-# SMTP Email (Gmail App Password)
-SMTP_SERVER=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USERNAME=your-email@gmail.com
-SMTP_PASSWORD=your-app-password
+SECRET_KEY=your-secure-crypto-random-string
+BREVO_API_KEY=your-brevo-api-key
+BREVO_SENDER_EMAIL=your-email@yourdomain.com
 SMTP_FROM_NAME=AgriGear ERP
-SMTP_EMAIL=your-email@gmail.com
-
-# Frontend URL (for password reset links)
 FRONTEND_URL=http://localhost:3000
 ```
 
-#### Start the Backend
-
-```bash
-# Option 1: Using the batch script (Windows)
-run.bat
-
-# Option 2: Manual
-python -m uvicorn server:app --reload --host 0.0.0.0 --port 8000
+**Frontend (`frontend/.env`):**
+```env
+REACT_APP_API_URL=http://localhost:8000
 ```
 
-The API will be available at **http://localhost:8000**. Interactive docs at **http://localhost:8000/docs**.
+### 3. Running the Application Locally
 
-### 3. Frontend Setup
+#### Start the Backend API
+```bash
+cd backend
+python -m venv venv
 
+# Windows
+venv\Scripts\activate
+# macOS/Linux
+source venv/bin/activate
+
+pip install -r requirements.txt
+
+# Start Dev Server
+python -m uvicorn server:app --reload --host 0.0.0.0 --port 8000
+# Alternatively on Windows: run.bat
+```
+*The API Interactive documentation (Swagger UI) will mount at `http://localhost:8000/docs`.*
+
+#### Start the Frontend Client
+Open a secondary terminal:
 ```bash
 cd frontend
-
-# Install dependencies
 yarn install
-
-# Start the development server
 yarn start
 ```
-
-The app will open at **http://localhost:3000**.
-
----
-
-## 👤 User Roles & Access
-
-| Role           | Access Level                                                    |
-|----------------|-----------------------------------------------------------------|
-| `super_admin`  | Manages all tenants, creates organizations, handles support     |
-| `owner`        | Company owner — creates managers, views all org data            |
-| `org_admin`    | Day-to-day operations — machinery, bookings, invoices, reports  |
-| `operator`     | Field work — assigned bookings, field logs, fuel logging        |
-| `farmer`       | Marketplace — browse machinery, create bookings, view invoices  |
-| `mechanic`     | Maintenance — accept jobs, request parts, complete repairs      |
+*The React application will mount at `http://localhost:3000`.*
 
 ---
 
-## 📡 API Overview
+## 🔒 Security Posture
 
-All routes are prefixed with `/api`. Key endpoint groups:
-
-| Group                | Endpoints                          | Description                           |
-|----------------------|------------------------------------|---------------------------------------|
-| **Auth**             | `/login`, `/register`, `/forgot-password`, `/reset-password` | JWT authentication & password flows |
-| **Users**            | `/admin/users`, `/employees`, `/operators` | User & staff management         |
-| **Machinery**        | `/machinery`                       | Fleet CRUD & status management        |
-| **Bookings**         | `/bookings`, `/bookings/{id}/rate` | Booking lifecycle & ratings           |
-| **Field Logs**       | `/field-logs`                      | Operator work logging                 |
-| **Invoices**         | `/invoices`, `/invoices/{id}/pay`  | Billing & payment                     |
-| **Maintenance**      | `/maintenance`, `/maintenance/{id}/complete`, `/maintenance/{id}/review` | Repair lifecycle |
-| **Wages**            | `/wages`, `/org/pay-operator/{id}`, `/org/pay-mechanic/{id}` | Payroll             |
-| **Reports**          | `/reports/*`, `/dashboard/reports/{type}` | Analytics & BI                 |
-| **Dashboard**        | `/dashboard`                       | KPI summary stats                     |
-| **Organizations**    | `/admin/organizations`             | Multi-tenant management               |
-| **Support**          | `/support/*`, `/admin/tickets/*`   | Ticketing & appeals                   |
-
----
-
-## 🎨 Design System
-
-The UI follows the **"Industrial Clean"** design language defined in `design_guidelines.json`:
-
-- **Primary Color**: Deep Evergreen `#0F3D3E` — trust, reliability, agriculture
-- **Accent Color**: Safety Orange `#F97316` — alerts, CTAs, critical status
-- **Typography**: Manrope (headings), Public Sans (body), JetBrains Mono (data/IDs)
-- **Layout**: Bento Grid dashboard, persistent sidebar navigation
-- **Components**: Radix UI primitives, Sonner toast notifications, Recharts visualization
-
----
-
-## 📦 MongoDB Collections
-
-| Collection           | Purpose                                      |
-|----------------------|----------------------------------------------|
-| `users`              | All user accounts (all roles)                |
-| `organizations`      | Tenant companies                             |
-| `machinery`          | Registered machines with rates & status      |
-| `employees`          | Staff records (operators, managers)           |
-| `bookings`           | Farmer booking requests & assignments        |
-| `field_logs`         | Operator work completion logs                |
-| `invoices`           | Auto-generated billing records               |
-| `payments`           | Payment transaction records                  |
-| `maintenance`        | Maintenance/repair job lifecycle              |
-| `material_requests`  | Spare part requests from mechanics           |
-| `wages`              | Operator & mechanic wage records             |
-| `fuel_expenses`      | Diesel/fuel cost tracking per machine        |
-| `support_tickets`    | User appeal & inquiry threads                |
-
----
-
-## 🧪 Development
-
-```bash
-# Backend — auto-reload on file changes
-python -m uvicorn server:app --reload --host 0.0.0.0 --port 8000
-
-# Frontend — hot module replacement
-yarn start
-
-# Frontend production build
-yarn build
-```
+- **Role-Based Access Control (RBAC):** Every endpoint strictly enforces JWT payload role checks before database execution.
+- **Tenant Isolation:** Database queries inherently filter by `organization_id` derived securely from the authenticated token payload.
+- **Deferred Credentials:** Farmers and Mechanics register without passwords; credentials are automatically generated securely post-admin approval and dispatched via the Brevo API.
+- **Secrets Management:** `.env` files and `__pycache__` artifacts are actively excluded via `.gitignore`.
 
 ---
 
 ## 📄 License
-
-This project is proprietary. All rights reserved.
+This project was built as an academic mini project.
